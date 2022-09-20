@@ -29,7 +29,7 @@ const Authentication = () => {
 
     return (
         <div className='authentication-container'>
-            <SignInEmail logGoogleUser={logGoogleUser} />
+            <div className='sign-in-container'> <SignInEmail logGoogleUser={logGoogleUser} /></div>
             <SignUpForm />
             {/* <button onClick={signInWithGoogleRedirect}>SignIn with Google Redirect</button> */}
         </div>

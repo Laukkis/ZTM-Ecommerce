@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { signInAuthWithEmailAndPaswword } from "../../utils/firebase/firebase.utils";
+import { signInAuthWithEmailAndPaswword, signInWithGooglePopup } from "../../utils/firebase/firebase.utils";
 
 
 import Button from '../button/button'
@@ -12,13 +12,17 @@ const defaultFormFields = {
     password: '',
 }
 
-const SignInEmail = ({ logGoogleUser }) => {
+const SignInEmail = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
 
     const resetFormfields = () => {
         setFormFields(defaultFormFields);
     }
+
+    const signInWithGoogle = async () => {
+        await signInWithGooglePopup();
+    };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -29,8 +33,9 @@ const SignInEmail = ({ logGoogleUser }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await signInAuthWithEmailAndPaswword(email, password);
+            const { user } = await signInAuthWithEmailAndPaswword(email, password);
             resetFormfields();
+            console.log(user)
         } catch (error) {
             switch (error.code) {
                 case 'auth/wrong-password':
@@ -68,8 +73,8 @@ const SignInEmail = ({ logGoogleUser }) => {
                     value={password}
                 />
                 <div className="signin-button-container">
-                    <Button type="submit">SignIn</Button>
-                    <Button type="button" buttonType='google' onClick={logGoogleUser}>SignIn with Google</Button>
+                    <Button type="submit">Sign In</Button>
+                    <Button type="button" buttonType='google' onClick={signInWithGoogle}>Google Sign In</Button>
                 </div>
             </form>
         </div>
