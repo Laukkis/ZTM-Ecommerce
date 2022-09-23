@@ -6,14 +6,16 @@ import { CartContext } from '../../contexts/cart.context'
 import Button from '../button/button'
 
 const ProductCard = ({ product }) => {
-    const { name, price, imageUrl } = product
+    const { name, price, imageUrl } = product;
+    const { addItemToCart } = useContext(CartContext)
 
-    const { cartItems } = useContext(CartContext)
+    const addProductToCart = () => addItemToCart(product)
 
-    const AddToCart = () => {
-        cartItems.push(product)
-        console.log(cartItems);
-    }
+
+    /*   const AddToCart = () => {
+          cartItems.push(product)
+          console.log(cartItems);
+      } */
 
 
 
@@ -23,7 +25,7 @@ const ProductCard = ({ product }) => {
             <div className="footer">
                 <span className="name">{name}</span>
                 <span className="price">{price}</span>
-                <Button buttonType={'inverted'} onClick={AddToCart}>Add to card</Button>
+                <Button buttonType={'inverted'} onClick={addProductToCart}>Add to card</Button>
             </div>
         </div>
     )
