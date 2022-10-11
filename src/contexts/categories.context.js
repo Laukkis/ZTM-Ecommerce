@@ -18,10 +18,6 @@ export const CategoriesProvider = ({ children }) => {
         getCategoriesMap();
     }, [])
 
-    /* useEffect(() => {
-        AddCollectionAndDocumentes('categories', SHOP_DATA)
-    }, []) */
-
     const value = { categoriesMap }
 
     return <CategoriesContext.Provider value={value}>{children}</CategoriesContext.Provider>
