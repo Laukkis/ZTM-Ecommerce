@@ -1,0 +1,28 @@
+import { removeFavoritesObject } from "../../utils/firebase/firebase.utils"
+
+import './favorites-card.styles.scss'
+
+
+const FavoritesCard = ({ favorites }) => {
+    const { name, id, imageUrl, price } = favorites.items
+    console.log(favorites.items)
+
+    const removeHandler = () => {
+        removeFavoritesObject()
+        console.log("removeHandler done")
+
+    }
+    return (
+        <div className="card-container">
+            {favorites.items.map((items) => (
+                <div className='item-details' key={items.id}>
+                    <img src={items.imageUrl} alt={`${items.name}`} />
+                    <h4 className='name'>{items.name}</h4>
+                    <span className='remove-favorite-button' onClick={removeHandler}>Remove from favorites</span>
+                </div>
+            ))}
+        </div>
+    )
+}
+
+export default FavoritesCard;

@@ -1,0 +1,24 @@
+.profile-page-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    background-color: azure;
+    min-height: 30vh;
+
+    .column {
+        margin: 30px;
+    }
+
+}
+
+.button-container-profile {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: azure;
+    padding-bottom: 50px;
+
+}

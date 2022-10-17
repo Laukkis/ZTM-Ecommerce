@@ -1,0 +1,7 @@
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    background-color: azure;
+    min-height: 30vh;
+}

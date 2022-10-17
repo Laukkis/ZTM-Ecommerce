@@ -16,9 +16,11 @@ import {
     getDoc,
     setDoc,
     collection,
-    writeBatch,
     query,
-    getDocs
+    getDocs,
+    updateDoc,
+    arrayUnion,
+    arrayRemove
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -66,6 +68,67 @@ export const getCategoriesAndDocuments = async () => {
 
     const querySnapshot = await getDocs(q);
     return querySnapshot.docs.map(docSnapshot => docSnapshot.data());
+
+}
+
+export const getFavoritesAndDocuments = async () => {
+    const user = auth.currentUser
+    const uid = user.uid
+
+    const docRef = doc(db, 'favorites', uid);
+    const docSnap = await getDoc(docRef);
+    return docSnap.data()
+}
+
+export const setFavoritesAndDocuments = async (name, imageUrl, price, id) => {
+    const user = auth.currentUser
+    const uid = user.uid
+
+    const docRef = doc(db, "favorites", uid);
+    const userSnapshot = await getDoc(docRef)
+
+    if (!userSnapshot.exists()) {
+        try {
+            await setDoc(docRef, {
+                name, imageUrl, price, id
+            });
+        } catch (error) {
+            console.log('Error creating the favorite', error.message)
+        }
+    }
+
+    try {
+        await updateDoc(docRef, {
+            items: arrayUnion({
+                name, imageUrl, price, id
+            })
+        });
+    } catch (error) {
+        console.log('Error adding to favorites', error.message)
+    }
+}
+
+export const removeFavoritesObject = async () => {
+    const user = auth.currentUser
+    const uid = user.uid
+
+
+    const docRef = doc(db, "favorites", uid);
+
+    try {
+        await updateDoc(docRef, {
+            items: arrayRemove(
+                /* name,
+                imageUrl,
+                id,
+                price */
+                "Tan Trench"
+            )
+        });
+    } catch (error) {
+        console.log('Error removing from favorites', error.message)
+    }
+
 
 }
 
