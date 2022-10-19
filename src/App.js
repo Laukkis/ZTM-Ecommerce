@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { Routes, Route } from 'react-router-dom';
 
 import { setCurrentUser } from "./store/user/user.action";
-import { setFavorites } from "./store/favorites/favorites.action";
+import { setFavorites, resetFavorites } from "./store/favorites/favorites.action";
 
 
 import {
@@ -36,9 +36,9 @@ const App = () => {
           dispatch(setFavorites(favoritesArray));
         }
         getFavoritesMap();
-        console.log()
       }
       dispatch(setCurrentUser(user));
+      dispatch(resetFavorites())
     });
 
     return unsubscribe

@@ -14,6 +14,15 @@ export const favoritesReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 favorites: payload
             }
+        case FAVORITES_ACTION_TYPES.ADD_TO_FAVORITES:
+            return {
+                ...state,
+                favorites: payload
+            }
+        case FAVORITES_ACTION_TYPES.RESET_INITIAL_STATE:
+            return {
+                ...INITIAL_STATE
+            }
         default:
             return state;
     }

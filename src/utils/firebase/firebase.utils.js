@@ -20,7 +20,7 @@ import {
     getDocs,
     updateDoc,
     arrayUnion,
-    arrayRemove
+    arrayRemove,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -108,21 +108,16 @@ export const setFavoritesAndDocuments = async (name, imageUrl, price, id) => {
     }
 }
 
-export const removeFavoritesObject = async () => {
+export const removeFavoritesObject = async (itemToRemove) => {
     const user = auth.currentUser
     const uid = user.uid
-
 
     const docRef = doc(db, "favorites", uid);
 
     try {
         await updateDoc(docRef, {
             items: arrayRemove(
-                /* name,
-                imageUrl,
-                id,
-                price */
-                "Tan Trench"
+                ...itemToRemove
             )
         });
     } catch (error) {
@@ -135,7 +130,10 @@ export const removeFavoritesObject = async () => {
 export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {
     if (!userAuth) return;
 
-    const userDocRef = doc(db, 'users', userAuth.uid);
+    const uid = userAuth.uid
+
+    const userDocRef = doc(db, 'users', uid);
+    const favoritesDocRef = doc(db, "favorites", uid);
 
     const userSnapshot = await getDoc(userDocRef)
 
@@ -150,6 +148,16 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
                 email,
                 createdAt,
                 ...additionalInformation,
+            });
+        } catch (error) {
+            console.log('Error creating the user', error.message)
+        }
+
+        try {
+            await setDoc(favoritesDocRef, {
+                items: arrayUnion({
+                    name: 'Placeholder favorite'
+                })
             });
         } catch (error) {
             console.log('Error creating the user', error.message)

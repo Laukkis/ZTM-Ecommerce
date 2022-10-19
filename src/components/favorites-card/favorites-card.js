@@ -4,11 +4,14 @@ import './favorites-card.styles.scss'
 
 
 const FavoritesCard = ({ favorites }) => {
-    const { name, id, imageUrl, price } = favorites.items
-    console.log(favorites.items)
 
     const removeHandler = () => {
-        removeFavoritesObject()
+        const favoritesObject = favorites.items
+        const itemToRemove = Object.keys(favoritesObject)
+
+
+        removeFavoritesObject(itemToRemove)
+        console.log(itemToRemove)
         console.log("removeHandler done")
 
     }
