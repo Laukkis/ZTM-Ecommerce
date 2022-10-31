@@ -3,6 +3,7 @@
   flex-direction: column;
   margin-bottom: 30px;
 
+
   .title {
     font-size: 28px;
     margin-bottom: 25px;
@@ -14,4 +15,17 @@
     grid-template-columns: repeat(4, 1fr);
     column-gap: 20px;
   }
+
+  .favorite-button {
+
+    .favorite-icon {
+      color: red;
+      font-size: 30px;
+      top: 5px;
+      right: 5px;
+      position: absolute;
+
+    }
+  }
+
 }

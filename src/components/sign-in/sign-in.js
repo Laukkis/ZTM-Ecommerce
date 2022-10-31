@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { signInAuthWithEmailAndPaswword, signInWithGooglePopup } from "../../utils/firebase/firebase.utils";
 
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { setFavorites } from "../../store/favorites/favorites.action";
 
 import Button from '../button/button'
 import FormInput from "../form-input/form-input"
@@ -12,9 +16,12 @@ const defaultFormFields = {
     password: '',
 }
 
+
 const SignInEmail = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
+
+    const dispatch = useDispatch()
 
     const resetFormfields = () => {
         setFormFields(defaultFormFields);
@@ -29,13 +36,15 @@ const SignInEmail = () => {
 
         setFormFields({ ...formFields, [name]: value })
     };
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             const { user } = await signInAuthWithEmailAndPaswword(email, password);
+            dispatch(setFavorites());
             resetFormfields();
-            console.log(user)
+            navigate('/')
         } catch (error) {
             switch (error.code) {
                 case 'auth/wrong-password':

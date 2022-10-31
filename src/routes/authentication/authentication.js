@@ -12,15 +12,6 @@ import './authentication.styles.scss'
 
 const Authentication = () => {
 
-    /* useEffect(
-        () => async () => {
-            const response = await getRedirectResult(auth);
-            if (response) {
-                const userDocRef = await createUserDocumentFromAuth(response.user);
-            }
-        },
-        []
-    ); */
 
     const logGoogleUser = async () => {
         const { user } = await signInWithGooglePopup();
@@ -31,7 +22,6 @@ const Authentication = () => {
         <div className='authentication-container'>
             <div className='sign-in-container'> <SignInEmail logGoogleUser={logGoogleUser} /></div>
             <SignUpForm />
-            {/* <button onClick={signInWithGoogleRedirect}>SignIn with Google Redirect</button> */}
         </div>
     )
 }

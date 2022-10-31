@@ -9,7 +9,7 @@ import { ReactComponent as Logo } from '../../assets/crown.svg'
 
 import './navigation.styles.scss'
 
-import { signOutUser } from '../../utils/firebase/firebase.utils';
+
 
 import { selectIsCartOpen } from '../../store/cart/cart.selector';
 import { selectCurrentUser } from '../../store/user/user.selector';
@@ -33,7 +33,9 @@ const Navigation = () => {
                         SHOP
                     </Link>
                     {currentUser ? (
-                        <span className='nav-link' onClick={signOutUser}> SIGN OUT</span>
+                        <Link className='nav-link' to='/profile'>
+                            PROFILE
+                        </Link>
                     ) : (<Link className='nav-link' to='/auth'>
                         SIGN IN
                     </Link>
