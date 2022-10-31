@@ -8,7 +8,7 @@ import './favorites-preview.styles.scss'
 
 const FavoritesPreview = () => {
     const favorites = useSelector(selectFavorites)
-    const favorite = favorites.items[1]
+    const favorite = favorites?.items
 
     const navigate = useNavigate();
 
