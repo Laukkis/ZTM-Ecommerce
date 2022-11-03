@@ -36,7 +36,7 @@ const ProductCard = ({ product }) => {
     }
 
     const FavoritesButton = () => {
-        if (favorites.items.some(e => e.id === id && currentUser)) {
+        if (favorites?.items?.some(e => e.id === id && currentUser)) {
             return <span className='favorite-icon'><FontAwesomeIcon icon={faHeart} /></span>
         }
 

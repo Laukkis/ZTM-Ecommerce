@@ -17,7 +17,7 @@ const FavoritesCard = ({ favorites }) => {
     }
     return (
         <div className="card-container">
-            {favorites.items.map((items) => (
+            {favorites.items?.map((items) => (
                 <div className='item-details' key={items.id}>
                     <img src={items.imageUrl} alt={`${items.name}`} />
                     <h4 className='name'>{items.name}</h4>

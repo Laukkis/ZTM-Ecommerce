@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { signInAuthWithEmailAndPaswword, signInWithGooglePopup } from "../../utils/firebase/firebase.utils";
+import { useDispatch } from "react-redux";
+
+
+import { goolgeSignInStart, emailSignInStart } from "../../store/user/user.action";
 
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
 import { setFavorites } from "../../store/favorites/favorites.action";
 
@@ -28,7 +30,7 @@ const SignInEmail = () => {
     }
 
     const signInWithGoogle = async () => {
-        await signInWithGooglePopup();
+        dispatch(goolgeSignInStart())
     };
 
     const handleChange = (event) => {
@@ -41,10 +43,10 @@ const SignInEmail = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const { user } = await signInAuthWithEmailAndPaswword(email, password);
+            dispatch(emailSignInStart(email, password));
             dispatch(setFavorites());
             resetFormfields();
-            navigate('/')
+            //navigate('/')
         } catch (error) {
             switch (error.code) {
                 case 'auth/wrong-password':
