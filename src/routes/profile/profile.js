@@ -2,11 +2,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
 import { selectCurrentUser } from '../../store/user/user.selector';
-import { signOutUser } from '../../utils/firebase/firebase.utils';
-
 
 import Button from '../../components/button/button'
 import FavoritesPreview from '../../components/favorites-preview/favorites-preview';
+
+import { signOutStart } from '../../store/user/user.action';
 
 import './profile.styles.scss'
 
@@ -14,10 +14,11 @@ const Profile = () => {
     const currentUser = useSelector(selectCurrentUser);
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const signOutHandler = () => {
-        signOutUser()
-        navigate('/')
+        dispatch(signOutStart());
+        navigate('/');
     }
 
 

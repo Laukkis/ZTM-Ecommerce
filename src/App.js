@@ -4,14 +4,11 @@ import { useDispatch } from "react-redux";
 
 import { Routes, Route } from 'react-router-dom';
 
-import { setFavorites, resetFavorites } from "./store/favorites/favorites.action";
+import { setFavorites } from "./store/favorites/favorites.action";
 import { checkUserSession } from "./store/user/user.action";
 
 
-import {
-  getFavoritesAndDocuments,
-  getCurrentUser
-} from "./utils/firebase/firebase.utils";
+import { getFavoritesAndDocuments } from "./utils/firebase/firebase.utils";
 
 import Home from './routes/home/home'
 import Navigation from './routes/navigation/navigation';
@@ -28,14 +25,16 @@ const App = () => {
 
   useEffect(() => {
     dispatch(checkUserSession())
+  },)
 
+  useEffect(() => {
     const getFavoritesMap = async () => {
-      const favoritesArray = await getFavoritesAndDocuments('favorites');
-      dispatch(setFavorites(favoritesArray));
+      if (checkUserSession === true) {
+        const favoritesArray = await getFavoritesAndDocuments('favorites');
+        dispatch(setFavorites(favoritesArray));
+      }
     }
     getFavoritesMap();
-
-
   }, [dispatch])
 
 

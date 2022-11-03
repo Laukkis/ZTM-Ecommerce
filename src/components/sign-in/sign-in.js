@@ -46,7 +46,7 @@ const SignInEmail = () => {
             dispatch(emailSignInStart(email, password));
             dispatch(setFavorites());
             resetFormfields();
-            navigate('/')
+            //navigate('/')
         } catch (error) {
             switch (error.code) {
                 case 'auth/wrong-password':
