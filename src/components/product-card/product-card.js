@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import './product-card.styles.scss'
+import { useNavigate } from 'react-router-dom'
 
 import { selectCartItems } from '../../store/cart/cart.selector'
 import { selectFavorites } from '../../store/favorites/favorites.selector'
@@ -14,21 +14,25 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import Button from '../button/button'
 
 import { setFavoritesAndDocuments, getFavoritesAndDocuments } from '../../utils/firebase/firebase.utils'
-
+import './product-card.styles.scss'
 
 const ProductCard = ({ product }) => {
 
     const { name, price, imageUrl, id } = product;
 
-    const cartItems = useSelector(selectCartItems)
-    const favorites = useSelector(selectFavorites)
+    const cartItems = useSelector(selectCartItems);
+    const favorites = useSelector(selectFavorites);
     const currentUser = useSelector(selectCurrentUser);
+    const navigate = useNavigate();
 
     const dispatch = useDispatch()
 
     const addProductToCart = () => dispatch(addItemToCart(cartItems, product));
 
     const addToFavorites = async () => {
+        if (currentUser === null) {
+            navigate('/auth')
+        }
         await setFavoritesAndDocuments(name, imageUrl, price, id)
         const favoritesArray = await getFavoritesAndDocuments('favorites');
         dispatch(setFavorites(favoritesArray));
