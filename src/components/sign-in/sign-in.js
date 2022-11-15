@@ -23,7 +23,8 @@ const SignInEmail = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const resetFormfields = () => {
         setFormFields(defaultFormFields);
@@ -31,6 +32,7 @@ const SignInEmail = () => {
 
     const signInWithGoogle = async () => {
         dispatch(goolgeSignInStart())
+        navigate('/')
     };
 
     const handleChange = (event) => {
@@ -38,7 +40,6 @@ const SignInEmail = () => {
 
         setFormFields({ ...formFields, [name]: value })
     };
-    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -46,7 +47,7 @@ const SignInEmail = () => {
             dispatch(emailSignInStart(email, password));
             dispatch(setFavorites());
             resetFormfields();
-            //navigate('/')
+            navigate('/')
         } catch (error) {
             switch (error.code) {
                 case 'auth/wrong-password':
